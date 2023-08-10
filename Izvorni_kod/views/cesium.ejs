@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./styles/main.css">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+</head>
+
+<body class="content">
+  <div id="buttonContainer">
+    <button onclick="window.location.href='/'">Povratak</button>
+  </div>
+  <div id="cesiumContainer"></div>
+  <script>
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NjdlNjJmNS0wZDAyLTQ1YjUtOGI2YS1kYjcwOTA4NmQwOTQiLCJpZCI6MTMzNTI4LCJpYXQiOjE2ODEzNzgwNjJ9.Fdho8xeNUnaqBxZG8XMVfbn1Ntql9IeDoXt5OC6_ej8';
+
+    // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+    terrainProvider: Cesium.createWorldTerrain()
+    });
+
+    var datetime = <%- JSON.stringify(datetime) %>;
+    viewer.clock.currentTime = Cesium.JulianDate.fromIso8601(datetime + ":00Z");
+    viewer.timeline.destroy();
+
+    viewer.camera.flyTo({
+      destination : Cesium.Cartesian3.fromDegrees(0, 0, viewer.camera.positionCartographic.height)
+    });
+
+    var data = <%- JSON.stringify(data) %>;
+    for (const element of data) {
+    var latitude = element.Latitude
+    var longitude = element.Longitude
+    viewer.entities.add({
+      rectangle: {
+        coordinates: Cesium.Rectangle.fromDegrees(
+          longitude-(1/6), latitude-(1/6),
+          longitude+(1/6), latitude+(1/6) 
+        ),
+        material: Cesium.Color.RED.withAlpha(0.5),
+      },
+    });
+  };
+  </script>
+</body>
+
+</html>

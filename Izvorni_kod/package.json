@@ -1,0 +1,28 @@
+{
+  "name": "izvorni_kod",
+  "version": "1.0.0",
+  "description": "Aplikacija za završni rad",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Filip Jakovina",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cesium": "^1.105.1",
+    "ejs": "3.1.8",
+    "express": "^4.18.2",
+    "express-session": "1.17.1",
+    "express-validator": "6.14.1",
+    "fs": "^0.0.1-security",
+    "pg": "8.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
